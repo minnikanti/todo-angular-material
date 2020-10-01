@@ -1,0 +1,50 @@
+<div>
+    <div class="add-title">
+        <h2 class="primary">{{ action }} ToDo Item</h2>
+    </div>
+    <div>
+        <form [formGroup]="todoForm" (change)="formChanged()">
+            <mat-grid-list cols="1" rowHeight="85px">
+                <mat-grid-tile>
+                    <div class="text-inside">
+                        <mat-form-field>
+                            <input matInput placeholder="Name" formControlName="name"
+                                required>
+                            <mat-error *ngIf="todoForm.controls.name.hasError('required')">
+                                Please enter name
+                            </mat-error>
+                            <mat-error *ngIf="todoForm.controls.name.hasError('pattern')">
+                                Please enter valid first name   
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="text-inside">
+                        <mat-form-field>
+                            <textarea matInput placeholder="Description" formControlName="description"></textarea>
+                        </mat-form-field>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="text-inside">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="expireDatePicker" placeholder="Expire Date" formControlName="expireDate" required>
+                            <mat-datepicker-toggle matSuffix [for]="expireDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #expireDatePicker></mat-datepicker>
+                            <mat-error *ngIf="todoForm.controls.expireDate.hasError('required')">
+                                Please select expire date
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <div class="btn-sec">
+                <button mat-raised-button type="submit" color="primary" class="Update-btn"
+                    (click)="addToDo()">Save</button>
+                <button mat-raised-button type="button" class="Discard-btn" (click)="closeDialog()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

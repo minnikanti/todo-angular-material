@@ -1,0 +1,57 @@
+<div style="text-align: center;">
+    <div class="mat-title">
+        <label class="marginforlabel">Search by Name:</label>
+        <!--<mat-form-field class="search-form-field">
+            <input matInput type="text" [(ngModel)]="searchName">
+            <button mat-button *ngIf="searchName" matSuffix mat-icon-button aria-label="Clear" (click)="searchName=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>-->
+        <mat-form-field>
+            <input matInput aria-label="State" [matAutocomplete]="auto" [formControl]="searchMoviesCtrl">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let todo of filteredValue" [value]="todo.name">
+                        <span><b>{{todo.name}}</b></span>
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="id > 0">
+        <mat-card>
+            <mat-card-header></mat-card-header>
+            <mat-card-content>
+                <div class="mat-title">
+                    <label class="marginforlabel">Name:</label>{{todo.name}}
+                </div>
+                <div class="mat-title">
+                    <label class="marginforlabel">Description:</label>{{todo.description}}
+                </div>
+                <div class="mat-title">
+                    <label class="marginforlabel">Expire Date:</label>{{todo.expireDate}}
+                </div>
+            </mat-card-content>
+            <mat-card-actions class="example-spacer">
+                <button mat-icon-button color="primary" (click)="toggleComplete(todo.id, 'Y')"
+                    *ngIf="todo.isCompleted === 'N'" matTooltip="Mark Todo as Done" matTooltipPosition="below"
+                    matTooltipHideDelay="100000" matTooltipHideDelay="0" z>
+                    <mat-icon aria-label="Mark Complete">done</mat-icon>
+                </button>
+
+                <button mat-icon-button color="primary" (click)="toggleComplete(todo.id, 'N')"
+                    *ngIf="todo.isCompleted === 'Y'" matTooltip="Mark Todo as UnDone" matTooltipPosition="below"
+                    matTooltipHideDelay="100000" matTooltipHideDelay="0">
+                    <mat-icon aria-label="Mark Undone">undo</mat-icon>
+                </button>
+
+                <button mat-icon-button color="primary" (click)="openDeleteToDoDialog(todo)" matTooltip="Delete Todo"
+                    matTooltipPosition="below" matTooltipHideDelay="100000" matTooltipHideDelay=0>
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
