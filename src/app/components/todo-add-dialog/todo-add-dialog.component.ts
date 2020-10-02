@@ -22,16 +22,17 @@ export class TodoAddDialogComponent implements OnInit {
   public ngOnInit(): void {
     this.todo = this.data.todo;
     this.action = this.data.action;
+    let dateObj: Date;
     if(this.todo.id != null) {
-    console.log(this.todo.expireDate);
-    console.log(this.todo.expireDate.substring(10,6));
-    console.log(this.todo.expireDate.substring(5,3));
-    console.log(this.todo.expireDate.substring(0,2));
+      let year = Number(this.todo.expireDate.substring(10,6));
+      let date = Number(this.todo.expireDate.substring(5,3));
+      let month = Number(this.todo.expireDate.substring(0,2));
+      dateObj = new Date(year, month-1, date);
     }
     this.todoForm = this.formBuilder.group({
       'name': [this.todo.name, [Validators.required, Validators.pattern('[0-9a-zA-Z]+([0-9a-zA-Z ]+)*')]],
       'description': [this.todo.description, Validators.required],
-      'expireDate': [new Date(), Validators.required]
+      'expireDate': [dateObj, Validators.required]
     });
   }
   /*'expireDate': [new Date(Number(this.todo.expireDate.substring(10,6)),
